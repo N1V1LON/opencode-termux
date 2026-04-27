@@ -7,7 +7,7 @@
   },
   "keywords": ["opencode", "termux", "android", "arm64", "ai", "coding-agent"],
   "author": "N1V1LON",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/N1V1LON/opencode-termux.git"
