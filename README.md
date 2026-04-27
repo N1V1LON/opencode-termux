@@ -1,148 +1,86 @@
-Понял — тебе нужно, чтобы весь README был оформлен так, чтобы можно было легко скопировать, без сломанных блоков и с нормальными Markdown‑кодблоками.
+# @n1v1lon/opencode-android
 
-Вот идеально выровненная версия, полностью готовая для GitHub.  
-Все блоки — корректные, копируются без проблем.
+![NPM Version](https://img.shields.io/badge/npm-v1.0.3-blue?style=flat-square&logo=npm)
+![License](https://img.shields.io/badge/license-GPL--3.0-green?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Android%20|%20Termux-orange?style=flat-square&logo=android)
+![Arch](https://img.shields.io/badge/arch-aarch64-red?style=flat-square)
 
----
+> **OpenCode работает нативно в Termux — без proot, без эмуляции и лишних потерь производительности.**
 
-@n1v1lon/opencode-android
-
-https://img.shields.io/badge/npm-v1.0.3-blue?style=flat-square&logo=npm
-https://img.shields.io/badge/license-GPL--3.0-green?style=flat-square
-https://img.shields.io/badge/platform-Android%20%7C%20Termux-orange?style=flat-square&logo=android
-https://img.shields.io/badge/arch-aarch64-red?style=flat-square
-
-> OpenCode работает нативно в Termux — без proot, без эмуляции и без потерь производительности.
-
-Самый быстрый и лёгкий способ запустить OpenCode на Android.  
-Используется glibc-runner для прямого запуска официального Linux‑бинарника.
+Самый быстрый и легкий способ запустить OpenCode на Android. Мы используем `glibc-runner` для прямого запуска официального Linux-бинарника в среде Termux.
 
 ---
 
-📸 Скриншоты
-
+## 📸 Скриншоты
 <details>
-<summary><strong>Нажми, чтобы развернуть</strong></summary>
+<summary>Нажми, чтобы развернуть скриншоты работы</summary>
 
-| Скрин 1 | Скрин 2 |
-|--------|---------|
-| [Похоже, результат оказался небезопасным для отображения. Давайте внесем изменения и попробуем что-нибудь другое!] | [Похоже, результат оказался небезопасным для отображения. Давайте внесем изменения и попробуем что-нибудь другое!] |
-
-| Скрин 3 | Скрин 4 |
-|--------|---------|
-| [Похоже, результат оказался небезопасным для отображения. Давайте внесем изменения и попробуем что-нибудь другое!] | [Похоже, результат оказался небезопасным для отображения. Давайте внесем изменения и попробуем что-нибудь другое!] |
+| | |
+|---|---|
+| ![Screen 1](Screenshot_2026-04-27-12-32-31-004_com.termux.jpg) | ![Screen 2](Screenshot_2026-04-27-12-32-45-070_com.termux.jpg) |
+| ![Screen 3](Screenshot_2026-04-27-12-33-23-590_com.termux.jpg) | ![Screen 4](Screenshot_2026-04-27-12-33-55-784_com.termux.jpg) |
 
 </details>
 
 ---
 
-🚀 Установка
+## 🚀 Установка
 
-1. Через NPM (рекомендуется)
-
-`bash
+### 1. Через NPM (Рекомендуется)
+```bash
 npm config set @n1v1lon:registry=https://npm.pkg.github.com/
 npm install -g @n1v1lon/opencode-android
-`
-
+```
 ---
-
-2. Быстрый скрипт (One‑liner)
-
-`bash
+2. Быстрый скрипт (One-liner)
+```bash
 curl -fsSL https://raw.githubusercontent.com/N1V1LON/opencode-termux/main/install.sh | bash
-`
+```
+3. Ручная установка (Для профи)
 
----
-
-3. Ручная установка (для профи)
-
-1. Установка glibc
-
-`bash
-pkg install glibc-repo -y
-pkg update -y
-pkg install glibc-runner -y
-`
-
-2. Загрузка бинарника
-
-`bash
-curl -L -o opencode.tar.gz https://github.com/anomalyco/opencode/releases/latest/download/opencode-linux-arm64.tar.gz
-`
-
-3. Распаковка
-
-`bash
-mkdir -p ~/opencode-arm64
-tar -xzf opencode.tar.gz -C ~/opencode-arm64
-chmod +x ~/opencode-arm64/opencode
-`
-
-4. Алиас
-
-`bash
-echo 'alias opencode="glibc-runner ~/opencode-arm64/opencode"' >> ~/.bashrc
-`
-
----
+1.  Подготовка glibc:
+    ```bash
+    pkg install glibc-repo -y && pkg update -y && pkg install glibc-runner -y
+    ```
+2.  Загрузка бинарника:
+    ```bash
+    curl -L -o opencode.tar.gz https://github.com/anomalyco/opencode/releases/latest/download/opencode-linux-arm64.tar.gz
+    ```
+3.  Распаковка:
+    ```bash
+    mkdir -p ~/opencode-arm64 && tar -xzf opencode.tar.gz -C ~/opencode-arm64
+    chmod +x ~/opencode-arm64/opencode
+    ```
+4.  Алиас:
+    ```bash
+    echo 'alias opencode="glibc-runner ~/opencode-arm64/opencode"' >> ~/.bashrc
+    ```
 
 🛠 Запуск
 
-`bash
+После установки введите:
+```
 opencode
-`
-
-Если команда не найдена:
-
-`bash
-exec bash
-
-или
-exec zsh
-`
-
----
+```
+(Если команда не найдена, перезапустите терминал командой exec bash или exec
+zsh)
 
 🔍 Как это работает?
 
-В отличие от proot‑окружений (Alpine/Ubuntu), проект запускает бинарник напрямую.  
-glibc-runner создаёт слой совместимости между glibc и Android Bionic libc.
-
-Преимущества:
-
-- минимальное потребление ОЗУ  
-- нативная скорость CPU  
-- отсутствие эмуляции  
-- стабильность и предсказуемость  
-
----
+В отличие от методов через proot (Alpine/Ubuntu), этот проект запускает бинарник
+напрямую. glibc-runner обеспечивает слой совместимости между glibc и Android
+Bionic libc. Результат: минимальное потребление ОЗУ и нативная скорость CPU.
 
 📋 Требования
 
-- Android 7.0+
-- Архитектура: aarch64 (ARM64)
-- Termux (F‑Droid / GitHub)
-- Свободное место: ~150 MB
-
----
+  - ОС: Android 7.0+
+  - Архитектура: aarch64 (ARM64)
+  - Приложение: Termux (F-Droid / GitHub)
+  - Место: ~150 MB
 
 🤝 Ссылки
 
-- OpenCode Official — исходный проект  
-- GitHub N1V1LON — автор портации  
-
----
+  - OpenCode Official — Исходный проект.
+  - GitHub N1V1LON — Автор портации.
 
 Автор: @N1V1LON
-
----
-
-Если хочешь — могу:
-
-🔹 сделать красивый баннер  
-🔹 добавить GIF‑демо  
-🔹 оформить секцию FAQ  
-🔹 сделать английскую версию README  
-
-Скажи, что добавить.
