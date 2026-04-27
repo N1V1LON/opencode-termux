@@ -1,121 +1,78 @@
-# opencode-android
+# @n1v1lon/opencode-android
 
-> **OpenCode работает нативно в Termux — без proot, без эмуляции.**
+![NPM Version](https://img.shields.io/badge/npm-v1.0.3-blue?style=flat-square&logo=npm)
+![License](https://img.shields.io/badge/license-GPL--3.0-green?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Android%20|%20Termux-orange?style=flat-square&logo=android)
+![Arch](https://img.shields.io/badge/arch-aarch64-red?style=flat-square)
 
-Найдено методом проб и ошибок. Суть простая: используем `glibc-runner` из Termux репозитория чтобы запустить официальный Linux aarch64 бинарник opencode напрямую на Android.
+> **OpenCode работает нативно в Termux — без proot, без эмуляции и лишних потерь производительности.**
 
----
-
-## Скриншоты
-
-![](Screenshot_2026-04-27-12-32-31-004_com.termux.jpg)
-![](Screenshot_2026-04-27-12-32-45-070_com.termux.jpg)
-![](Screenshot_2026-04-27-12-33-23-590_com.termux.jpg)
-![](Screenshot_2026-04-27-12-33-55-784_com.termux.jpg)
+Самый быстрый и легкий способ запустить OpenCode на Android. Мы используем `glibc-runner` для прямого запуска официального Linux-бинарника в среде Termux.
 
 ---
 
-## Быстрая установка (1 команда)
+## 📸 Скриншоты
+<details>
+<summary>Нажми, чтобы развернуть скриншоты работы</summary>
 
+| | |
+|---|---|
+| ![Screen 1](Screenshot_2026-04-27-12-32-31-004_com.termux.jpg) | ![Screen 2](Screenshot_2026-04-27-12-32-45-070_com.termux.jpg) |
+| ![Screen 3](Screenshot_2026-04-27-12-33-23-590_com.termux.jpg) | ![Screen 4](Screenshot_2026-04-27-12-33-55-784_com.termux.jpg) |
+
+</details>
+
+---
+
+## 🚀 Установка
+
+### 1. Через NPM (Рекомендуется)
 ```bash
+npm config set @n1v1lon:registry=https://npm.pkg.github.com/
+npm install -g @n1v1lon/opencode-android
+
+2. Быстрый скрипт (One-liner)
+
 curl -fsSL https://raw.githubusercontent.com/N1V1LON/opencode-termux/main/install.sh | bash
-```
 
-После установки перезапусти оболочку и запускай:
+3. Ручная установка (Для профи)
 
-```bash
-exec zsh  # или exec bash
+1.  Подготовка glibc:
+    pkg install glibc-repo -y && pkg update -y && pkg install glibc-runner -y
+2.  Загрузка бинарника:
+    curl -L -o opencode.tar.gz https://github.com/anomalyco/opencode/releases/latest/download/opencode-linux-arm64.tar.gz
+3.  Распаковка:
+    mkdir -p ~/opencode-arm64 && tar -xzf opencode.tar.gz -C ~/opencode-arm64
+    chmod +x ~/opencode-arm64/opencode
+4.  Алиас:
+    echo 'alias opencode="glibc-runner ~/opencode-arm64/opencode"' >> ~/.bashrc
+
+🛠 Запуск
+
+После установки введите:
+
 opencode
-```
 
----
+(Если команда не найдена, перезапустите терминал командой exec bash или exec
+zsh)
 
-## Ручная установка (4 шага)
+🔍 Как это работает?
 
-### 1. Установить glibc-runner
+В отличие от методов через proot (Alpine/Ubuntu), этот проект запускает бинарник
+напрямую. glibc-runner обеспечивает слой совместимости между glibc и Android
+Bionic libc. Результат: минимальное потребление ОЗУ и нативная скорость CPU.
 
-```bash
-pkg install glibc-repo -y && pkg update -y && pkg install glibc-runner -y
-```
+📋 Требования
 
-### 2. Скачать бинарник opencode для arm64
+  - ОС: Android 7.0+
+  - Архитектура: aarch64 (ARM64)
+  - Приложение: Termux (F-Droid / GitHub)
+  - Место: ~150 MB
 
-```bash
-curl -L -o opencode-linux-arm64.tar.gz https://github.com/anomalyco/opencode/releases/latest/download/opencode-linux-arm64.tar.gz
-```
+🤝 Ссылки
 
-### 3. Распаковать
+  - OpenCode Official — Исходный проект.
+  - GitHub N1V1LON — Автор портации.
 
-```bash
-mkdir -p ~/opencode-arm64
-tar -xzf opencode-linux-arm64.tar.gz -C ~/opencode-arm64
-rm opencode-linux-arm64.tar.gz
-chmod +x ~/opencode-arm64/opencode
-```
+Автор: @N1V1LON
 
-### 4. Добавить алиас
-
-Для **zsh** (по умолчанию в Termux):
-```bash
-echo 'alias opencode="glibc-runner ~/opencode-arm64/opencode"' >> ~/.zshrc
-exec zsh
-```
-
-Для **bash**:
-```bash
-echo 'alias opencode="glibc-runner ~/opencode-arm64/opencode"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### Запуск
-
-```bash
-opencode
-```
-
----
-
-## Как это работает
-
-Официальный бинарник opencode для `linux-arm64` собран под glibc, которой нет в Termux (там Android Bionic libc). `glibc-runner` предоставляет нужный слой совместимости — и бинарник запускается без проблем прямо в Termux.
-
----
-
-## Версии (проверено)
-
-| Компонент | Версия |
-|-----------|--------|
-| opencode | 1.14.28 |
-| glibc-runner | 2.0-3 |
-
-Более новые версии opencode скорее всего тоже работают — бинарник скачивается по ссылке на `latest`.
-
----
-
-## Требования
-
-- Android 7+ (aarch64)
-- Termux из [F-Droid](https://f-droid.org/packages/com.termux/) или [GitHub](https://github.com/termux/termux-app/releases) (**не** Google Play)
-- ~150MB свободного места
-- Интернет (~50MB для скачивания)
-
----
-
-## Известные проблемы
-
-- При первом запуске выполняется инициализация БД — это нормально, займёт несколько секунд
-- Алиас нужно добавить в `.zshrc` / `.bashrc`, иначе после новой сессии запускать через `glibc-runner ~/opencode-arm64/opencode`
-
----
-
-## Связанные проекты
-
-- [anomalyco/opencode](https://github.com/anomalyco/opencode) — официальный репо opencode
-- [guysoft/opencode-termux](https://github.com/guysoft/opencode-termux) — кросс-компиляция нативного Android бинарника (другой подход)
-- [Charlie6F/opencode_termux_alpine_aarch64](https://github.com/Charlie6F/opencode_termux_alpine_aarch64) — запуск через proot Alpine
-
----
-
-## Автор
-
-[@N1V1LON](https://github.com/N1V1LON) — найдено и проверено на Xiaomi aarch64, Termux + zsh.
