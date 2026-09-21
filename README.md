@@ -1,6 +1,5 @@
 # @n1v1lon/opencode-android
 
-![NPM Version](https://img.shields.io/badge/npm-v1.0.3-blue?style=flat-square&logo=npm)
 ![License](https://img.shields.io/badge/license-GPL--3.0-green?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Android%20|%20Termux-orange?style=flat-square&logo=android)
 ![Arch](https://img.shields.io/badge/arch-aarch64-red?style=flat-square)
@@ -26,22 +25,14 @@
 
 ## 🚀 Установка
 
-### 1. Через NPM (Рекомендуется)
-```bash
-npm config set @n1v1lon:registry=https://npm.pkg.github.com/
-npm install -g @n1v1lon/opencode-android
-```
-
----
-
-### 2. Быстрый скрипт (One-liner)
+### 1. Быстрый скрипт (One-liner)
 ```bash
 curl -fsSL https://raw.githubusercontent.com/N1V1LON/opencode-termux/main/install.sh | bash
 ```
 
 ---
 
-### 3. Ручная установка (Для профи)
+### 2. Ручная установка (Для профи)
 
 #### 1. Подготовка
 ```bash
