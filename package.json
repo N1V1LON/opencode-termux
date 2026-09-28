@@ -2,6 +2,9 @@
   "name": "opencode-android",
   "version": "1.0.0",
   "description": "Run OpenCode AI natively on Android/Termux without proot",
+  "scripts": {
+    "test": "bash tests/test_install.sh"
+  },
   "dependencies": {
     "opencode-ai": "^1.14.28"
   },
