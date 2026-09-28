@@ -1,6 +1,6 @@
 #!/bin/bash
 # opencode-termux-native installer
-# https://github.com/ТВОЙ_НИК/opencode-termux-native
+# https://github.com/N1V1LON/opencode-termux
 
 set -e
 
