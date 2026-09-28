@@ -28,23 +28,17 @@ chmod +x ~/opencode-arm64/opencode
 echo "[4/4] Добавляем алиас..."
 ALIAS_LINE='alias opencode="glibc-runner ~/opencode-arm64/opencode"'
 
-# zsh
-if [ -f ~/.zshrc ]; then
-  if ! grep -q 'opencode-arm64' ~/.zshrc; then
-    echo "$ALIAS_LINE" >> ~/.zshrc
-    echo "  → добавлено в ~/.zshrc"
-  else
-    echo "  → алиас уже есть в ~/.zshrc"
+for rc in .zshrc .bashrc; do
+  target="$HOME/$rc"
+  if [ -f "$target" ]; then
+    if ! grep -q 'opencode-arm64' "$target"; then
+      echo "$ALIAS_LINE" >> "$target"
+      echo "  → добавлено в ~/$rc"
+    else
+      echo "  → алиас уже есть в ~/$rc"
+    fi
   fi
-fi
-
-# bash
-if [ -f ~/.bashrc ]; then
-  if ! grep -q 'opencode-arm64' ~/.bashrc; then
-    echo "$ALIAS_LINE" >> ~/.bashrc
-    echo "  → добавлено в ~/.bashrc"
-  fi
-fi
+done
 
 echo ""
 echo "✓ Готово! Перезапусти оболочку и запускай:"
