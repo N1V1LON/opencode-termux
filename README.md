@@ -44,7 +44,7 @@ curl -fsSL https://raw.githubusercontent.com/N1V1LON/opencode-termux/main/instal
     ```
 2.  Загрузка бинарника:
     ```bash
-    curl -L -o opencode.tar.gz https://github.com/anomalyco/opencode/releases/latest/download/opencode-linux-arm64.tar.gz
+    curl -L -o opencode.tar.gz https://github.com/anomalyco/opencode/releases/download/v1.18.33/opencode-linux-arm64.tar.gz
     ```
 3.  Распаковка:
     ```bash
